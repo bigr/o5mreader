@@ -62,6 +62,10 @@ O5mreader is a C library that parses OpenStreetMap data in O5M format.
 
 	fclose(f);
 
+## Licence
+
+05mreader library is free and is released under MIT licecne, see [COPYING](https://github.com/bigr/o5mreader/blob/master/COPYING) for more information.
+
 ## More
 
 More information about o5m format: <http://wiki.openstreetmap.org/wiki/O5m>
