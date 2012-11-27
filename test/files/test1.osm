@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="1" lat="50" lon="15">
+    <tag k="tag1" v="value1"/>
+    <tag k="tag2" v="val2"/>
+  </node>
+
+  <node id="5" lat="60" lon="16">
+    <tag k="tag3" v="val3"/>
+    <tag k="tagtag4" v="val4"/>
+    <tag k="tag2" v="val2"/>   
+  </node>
+  
+  <node id="8" lat="48" lon="10"/>
+  
+  <node id="9" lat="45" lon="13">
+    <tag k="tag1" v="value1"/>
+    <tag k="tag2" v="val2"/>    
+    <tag k="tagtag4" v="val4"/>    
+  </node>
+
+  <way id="500">
+    <nd ref="1"/>
+    <nd ref="5"/>
+    <tag k="tag2" v="val2"/>
+    <tag k="tag5" v="val7"/>
+  </way>
+  
+  <way id="800">
+      <nd ref="1"/>
+      <nd ref="8"/>
+      <nd ref="9"/>
+      <tag k="tag6" v="value7"/>
+  </way>
+  
+  <relation id="9000">
+    <tag k="tag1" v="val1"/>
+    <tag k="tag7" v="val7"/>
+    <member type="node" role="r1" ref="5"/>
+    <member type="node" role="role2" ref="9"/>
+    <member type="way" ref="500"/>
+    <member type="way" ref="800"/>
+  </relation>
+ 
+  <relation id="10000">    
+    <member type="relation" role="rl3" ref="9000"/>
+  </relation>
+  
+  <relation id="11000">    
+    <member type="relation" role="rl3" ref="9000"/>
+  </relation>
+</osm>

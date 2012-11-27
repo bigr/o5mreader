@@ -4,10 +4,20 @@ Makefile.in
 
 # http://www.gnu.org/software/autoconf
 
-/autom4te.cache
-/aclocal.m4
-/compile
-/configure
-/depcomp
-/install-sh
-/missing
+*~
+*.o
+*.pyc
+*.os
+*.so
+*.a
+*.dylib
+*.dll
+*.log
+*.cache
+config.status
+config.h
+libo5mreader.pc
+Makefile
+src/Makefile
+test/Makefile
+

@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: O5mreader
+Description: O5mreader
+Requires: 
+Version: @PACKAGE_VERSION@
+Libs: -lo5mreader
+Cflags:
+
