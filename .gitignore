@@ -18,4 +18,6 @@ libo5mreader.pc
 Makefile
 src/Makefile
 test/Makefile
+build
+build/*
 

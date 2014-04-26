@@ -280,7 +280,7 @@ O5mreaderIterateRet o5mreader_readVersion(O5mreader *pReader, O5mreaderDataset* 
 		}
 	}
 	
-	if ( o5mreader_thereAreNoMoreData(pReader) ) 
+	if ( o5mreader_thereAreNoMoreData(pReader) )
 		return O5MREADER_ITERATE_RET_DONE;
 	
 	return O5MREADER_ITERATE_RET_NEXT;
