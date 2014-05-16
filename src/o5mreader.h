@@ -59,11 +59,13 @@ typedef struct {
 	char** strPairTable;
 } O5mreader;
 
-typedef struct {
+typedef struct {	
 	uint8_t type;	
-	uint64_t id;	
+	uint64_t id;
+	uint32_t version;
+	uint8_t isEmpty;
 	int32_t lon;
-	int32_t lat;
+	int32_t lat;	
 } O5mreaderDataset;
 
 

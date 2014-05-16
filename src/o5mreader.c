@@ -263,8 +263,9 @@ O5mreaderIterateRet o5mreader_readVersion(O5mreader *pReader, O5mreaderDataset* 
 	if ( o5mreader_readUInt(pReader,&tmp) == O5MREADER_ITERATE_RET_ERR  ) {
 		return O5MREADER_ITERATE_RET_ERR;
 	}
-	if ( tmp )  {
-		if ( o5mreader_readUInt(pReader,&tmp) == O5MREADER_ITERATE_RET_ERR  ) {
+	ds->version = tmp;
+	if ( tmp )  {		
+		if ( o5mreader_readUInt(pReader,&tmp) == O5MREADER_ITERATE_RET_ERR  ) {			
 			return O5MREADER_ITERATE_RET_ERR;		
 		}
 		
@@ -333,11 +334,24 @@ O5mreaderIterateRet o5mreader_readNode(O5mreader *pReader, O5mreaderDataset* ds)
 	if ( o5mreader_readInt(pReader,&nodeId) == O5MREADER_RET_ERR )
 		return O5MREADER_ITERATE_RET_ERR;	
 
+	pReader->canIterateRefs = 0;
+	pReader->canIterateNds = 0;
+	pReader->canIterateTags = 1;
+
 	pReader->nodeId += nodeId;
-	ds->id = pReader->nodeId;
+	ds->id = pReader->nodeId;				
 	
-	if ( o5mreader_readVersion(pReader, ds) == O5MREADER_ITERATE_RET_DONE  )
+	
+	if ( o5mreader_readVersion(pReader, ds) == O5MREADER_ITERATE_RET_DONE  ) {
+		ds->isEmpty = 1;
 		return O5MREADER_ITERATE_RET_NEXT;
+	}
+	else 
+		ds->isEmpty = 0;
+
+	if ( o5mreader_thereAreNoMoreData(pReader) ) {		
+		return O5MREADER_ITERATE_RET_NEXT;
+	}
 
 	if ( o5mreader_readInt(pReader,&lon) == O5MREADER_RET_ERR )
 		return O5MREADER_ITERATE_RET_ERR;
@@ -350,9 +364,7 @@ O5mreaderIterateRet o5mreader_readNode(O5mreader *pReader, O5mreaderDataset* ds)
 	
 	ds->lon = pReader->lon;
 	ds->lat = pReader->lat;
-	pReader->canIterateRefs = 0;
-	pReader->canIterateNds = 0;
-	pReader->canIterateTags = 1;
+	
 	return O5MREADER_ITERATE_RET_NEXT;
 }
 
@@ -399,8 +411,11 @@ O5mreaderIterateRet o5mreader_readWay(O5mreader *pReader, O5mreaderDataset* ds) 
 	pReader->wayId += wayId;
 	ds->id = pReader->wayId;
 	if ( o5mreader_readVersion(pReader, ds) == O5MREADER_ITERATE_RET_DONE  ) {
+		ds->isEmpty = 1;
 		return O5MREADER_ITERATE_RET_NEXT;
 	}
+	else
+		ds->isEmpty = 0;
 	if ( o5mreader_readUInt(pReader,&pReader->offsetNd) == O5MREADER_RET_ERR ) {
 		return O5MREADER_ITERATE_RET_ERR;
 	}
@@ -483,8 +498,11 @@ O5mreaderIterateRet o5mreader_readRel(O5mreader *pReader, O5mreaderDataset* ds) 
 	pReader->relId += relId;
 	ds->id = pReader->relId;
 	if ( o5mreader_readVersion(pReader,ds) == O5MREADER_ITERATE_RET_DONE  ) {
+		ds->isEmpty = 1;
 		return O5MREADER_ITERATE_RET_NEXT;
 	}
+	else
+		ds->isEmpty = 0;
 	o5mreader_readUInt(pReader,&pReader->offsetRf);
 	pReader->offsetRf += ftell(pReader->f);		
 	

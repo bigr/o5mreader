@@ -12,6 +12,9 @@
 *.app
 *.log
 *.cache
+*.la
+*.lo
+libtool
 config.status
 config.h
 libo5mreader.pc
@@ -20,4 +23,6 @@ src/Makefile
 test/Makefile
 build
 build/*
+.libs/
+.deps/
 
