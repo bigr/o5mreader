@@ -20,8 +20,8 @@ O5mreader is a C library that parses OpenStreetMap data in O5M format.
 		O5mreaderDataset ds;
 		O5mreaderIterateRet ret, ret2;
 		char *key, *val;
-		int64_t nodeId;
-		int64_t refId;
+		uint64_t nodeId;
+		uint64_t refId;
 		uint8_t type;
 		char *role;
 	
