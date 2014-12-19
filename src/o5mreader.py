@@ -57,10 +57,10 @@ class Element:
 		
 		ret = {}
 		while 1 == self._reader.libo5mreader.o5mreader_iterateTags(self._reader._reader,byref(key),byref(val)):			
-			ret[unicode(key.value,'utf-8')] = unicode(val.value,'utf-8')
+			ret[unicode(key.value,'utf-8',errors='replace')] = unicode(val.value,'utf-8',errors='replace')
 			
 		if self._reader._reader.contents.errCode != 0:			
-			raise O5mreaderException(string_at(self.libo5mreader.o5mreader_strerror(self._reader._reader.contents.errCode)));
+			raise O5mreaderException(string_at(self._reader.libo5mreader.o5mreader_strerror(self._reader._reader.contents.errCode)));
 			
 		return ret
 			
