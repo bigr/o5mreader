@@ -68,6 +68,9 @@ typedef struct {
 	int32_t lat;	
 } O5mreaderDataset;
 
+#if defined (__cplusplus)
+extern "C" {
+#endif
 
 O5mreaderRet o5mreader_open(O5mreader **ppReader,FILE* f);
 
@@ -82,5 +85,9 @@ O5mreaderIterateRet o5mreader_iterateTags(O5mreader *pReader, char** pKey, char*
 O5mreaderIterateRet o5mreader_iterateNds(O5mreader *pReader, uint64_t *nodeId);
 
 O5mreaderIterateRet o5mreader_iterateRefs(O5mreader *pReader, uint64_t *refId, uint8_t *type, char** pRole);
+
+#if defined (__cplusplus)
+}
+#endif
 
 #endif //__O5MREADER__H__
