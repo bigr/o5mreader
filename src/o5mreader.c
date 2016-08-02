@@ -260,7 +260,7 @@ int o5mreader_thereAreNoMoreData(O5mreader *pReader) {
 
 O5mreaderIterateRet o5mreader_readVersion(O5mreader *pReader, O5mreaderDataset* ds) {
 	uint64_t tmp;
-	size_t tlen, npow;
+	size_t tlen, npow = 1;
 	int i;
 	if ( o5mreader_readUInt(pReader,&tmp) == O5MREADER_ITERATE_RET_ERR  ) {
 		return O5MREADER_ITERATE_RET_ERR;
@@ -286,8 +286,8 @@ O5mreaderIterateRet o5mreader_readVersion(O5mreader *pReader, O5mreaderDataset* 
 		tlen = strlen(pReader->tagPair);
 		ds->uid = 0;
 		for (i = 0; i < tlen; i++) {
-			ds->uid += pReader->tagPair[i] * npow;
-			npow *= 256;
+			ds->uid += (pReader->tagPair[i] & 0x7f) * npow;
+			npow *= 128;
 		}
 		ds->user = (char *) (pReader->tagPair + tlen + 1);
 	}
