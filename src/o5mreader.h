@@ -63,6 +63,10 @@ typedef struct {
 	uint8_t type;	
 	uint64_t id;
 	uint32_t version;
+	int64_t timestamp;
+	int64_t changeset;
+	uint64_t uid;
+	char *user;
 	uint8_t isEmpty;
 	int32_t lon;
 	int32_t lat;	

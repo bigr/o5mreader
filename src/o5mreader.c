@@ -260,6 +260,8 @@ int o5mreader_thereAreNoMoreData(O5mreader *pReader) {
 
 O5mreaderIterateRet o5mreader_readVersion(O5mreader *pReader, O5mreaderDataset* ds) {
 	uint64_t tmp;
+	size_t tlen, npow;
+	int i;
 	if ( o5mreader_readUInt(pReader,&tmp) == O5MREADER_ITERATE_RET_ERR  ) {
 		return O5MREADER_ITERATE_RET_ERR;
 	}
@@ -268,10 +270,12 @@ O5mreaderIterateRet o5mreader_readVersion(O5mreader *pReader, O5mreaderDataset* 
 		if ( o5mreader_readUInt(pReader,&tmp) == O5MREADER_ITERATE_RET_ERR  ) {			
 			return O5MREADER_ITERATE_RET_ERR;		
 		}
+		ds->timestamp = tmp;
 		
 		if ( o5mreader_readInt(pReader,&tmp) == O5MREADER_ITERATE_RET_ERR ) {
 			return O5MREADER_ITERATE_RET_ERR;
 		}
+		ds->changeset = tmp;
 		
 		if ( o5mreader_thereAreNoMoreData(pReader) ) 
 			return O5MREADER_ITERATE_RET_DONE;
@@ -279,6 +283,13 @@ O5mreaderIterateRet o5mreader_readVersion(O5mreader *pReader, O5mreaderDataset* 
 		if ( o5mreader_readStrPair(pReader,&pReader->tagPair,0) == O5MREADER_ITERATE_RET_ERR ) {
 			return O5MREADER_ITERATE_RET_ERR;
 		}
+		tlen = strlen(pReader->tagPair);
+		ds->uid = 0;
+		for (i = 0; i < tlen; i++) {
+			ds->uid += pReader->tagPair[i] * npow;
+			npow *= 256;
+		}
+		ds->user = (char *) (pReader->tagPair + tlen + 1);
 	}
 	
 	if ( o5mreader_thereAreNoMoreData(pReader) )
